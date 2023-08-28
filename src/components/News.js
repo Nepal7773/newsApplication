@@ -11,7 +11,7 @@ const News = (props) => {
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
   const [totalResults, setTotalResults] = useState(0)
-  // document.title = `${capitalizeFirstLetter(props.category)} - NewsMonkey`;
+
 
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -21,17 +21,18 @@ const News = (props) => {
     let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=ed15c05520fc4ccc9801fe9c472d281e&page=1&pageSize=${props.pageSize}`;
     setLoading(true)
     let data = await fetch(url);
-    // props.setProgress(30);
+    props.setProgress(30);
     let parsedData = await data.json();
-    // props.setProgress(70);
+    props.setProgress(70);
     setArticles(parsedData.articles);
     setLoading(false);
     // setPage()
     setTotalResults(parsedData.totalResults);
-    // props.setProgress(100);
+    props.setProgress(100);
 
   }
   useEffect(() => {
+    document.title = `${capitalizeFirstLetter(props.category)} - NewsMonkey`;
     updateNews();
     // eslint-disable-next-line
   }, [])
